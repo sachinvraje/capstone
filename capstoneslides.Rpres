@@ -1,0 +1,65 @@
+Data Science Capstone: Course Project
+========================================================
+author: Sachin Raje
+date: 12 Feb 2017
+autosize: true
+
+Introduction
+========================================================
+type: sub-section
+<span style="color:blue; font-weight:bold; font-size:0.8em">
+As part of the Data Science Specialisation course from Coursera, this Shiny app is developed for the Capstone project. </span>
+
+<font size="5">
+The goal of this application is to build a predictive text model that will predict the next word as the user types a sentence. The application considers the last 3 words typed, and predicts the next word, based on the SwiftKey data available. The data helped us build uni-gram, bi-gram and tri-gram datasets. These are used for predicting the next word.
+
+*[Shiny App]* - [https://sachinvraje.shinyapps.io/capstone/]<br>
+*[Github Repo]* - [https://github.com/sachinvraje/capstone]<br>
+*[RPubs]* - [http://rpubs.com/sachinvraje/capstone]
+
+</font>
+
+Getting & Cleaning the Data
+========================================================
+type: sub-section
+
+<span style="color:blue; font-weight:bold; font-size:0.8em">
+Before building the word prediction algorithm, data are first processed and cleaned as steps below:
+</span>
+
+<font size="5">
+- The original dataset, provided by SwiftKey, was sampled and merged into one.
+- The data was made available from blogs,twitter and news.
+- Data cleaning: 1) Convert to lowercase 2) Strip whitespace 3) Remove punctuation, numbers.
+- Corresponding n-grams were then created (Quadgram, Trigram and Bigram).
+- Term-count tables from N-Grams were created. Sorted based on frequency descending.
+- N-gram objects were saved as R-Compressed files (.RData files).
+</font>
+
+Word Prediction Model
+========================================================
+type: sub-section
+
+<span style="color:blue; font-weight:bold;font-size:0.7em">
+The prediction model for next word is based on the Katz Back-off algorithm. Explanation of the next word prediction flow is as below:
+</span>
+
+<font size="5">
+- Compressed data sets containing descending frequency sorted n-grams are first loaded.
+- User input words are cleaned similarly.
+- If input word count >= 3, Quadgram is used (first 3 words of Quadgram = last 3 words of input).
+- If no Quadgram is found, use Trigram (first 2 words of Trigram = last 2 words of input).
+- If no Trigram is found, use Bigram (first word of Bigram = last word of input)
+- If no Bigram is found, the most common word with highest frequency 'the' is returned.
+
+</font>
+
+Shiny Application
+========================================================
+type: sub-section
+
+<span style="color:blue; font-weight:bold;font-size:0.7em">
+A Shiny application was developed based on the next word prediction model described previously. Sample image is shown below.
+</span>
+<img src="./app.png"></img>
+
